@@ -1,0 +1,72 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLOv8 Object Detection</title>
+</head>
+<body>
+    <h1>YOLOv8 Object Detection</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Detection Stream</title>
+</head>
+<body>
+    <h1>Fruit Detection Stream</h1>
+    <img src="{{ url_for('video_feed') }}" width="600" height="600">
+    <button onclick="controlStream('start')">Start Stream</button>
+    <button onclick="controlStream('stop')">Stop Stream</button>
+    <form id="fruitForm">
+        <label for="fruit_type">Fruit Type:</label>
+        <input type="text" id="fruit_type" name="fruit_type">
+        <label for="fruit_count">Fruit Count:</label>
+        <input type="number" id="fruit_count" name="fruit_count">
+        <button type="button" onclick="sendFruitData()">Send Fruit Data</button>
+    </form>
+    <script>
+        function controlStream(action) {
+            fetch('/control_stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: action }),
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(`${action} action successful`);
+                } else {
+                    console.error(`${action} action failed`);
+                }
+            });
+        }
+
+        function sendFruitData() {
+            const fruitType = document.getElementById('fruit_type').value;
+            const fruitCount = document.getElementById('fruit_count').value;
+
+            fetch('/send_fruit_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fruit_type: fruitType, fruit_count: parseInt(fruitCount) }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.log(data.message);
+                } else {
+                    console.error(data.error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

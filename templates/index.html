@@ -1,0 +1,153 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Detection</title>
+</head>
+<body>
+    <h1>Fruit Detection</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <form id="fruit-form">
+        <label for="fruit_type">과일 종류:</label>
+        <input type="text" id="fruit_type" name="fruit_type">
+        <label for="fruit_count">개수:</label>
+        <input type="number" id="fruit_count" name="fruit_count">
+        <button type="submit">전송</button>
+    </form>
+    <script>
+        document.getElementById('fruit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fruitType = document.getElementById('fruit_type').value;
+            const fruitCount = document.getElementById('fruit_count').value;
+            fetch('/send_fruit_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fruit_type: fruitType,
+                    fruit_count: parseInt(fruitCount)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Detection</title>
+</head>
+<body>
+    <h1>Fruit Detection</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <form id="capture-form">
+        <label for="fruit_type">Fruit Type:</label>
+        <input type="text" id="fruit_type" name="fruit_type">
+        <label for="fruit_count">Fruit Count:</label>
+        <input type="number" id="fruit_count" name="fruit_count">
+        <button type="button" onclick="capture()">Capture</button>
+    </form>
+    <script>
+        function capture() {
+            const fruitType = document.getElementById('fruit_type').value;
+            const fruitCount = document.getElementById('fruit_count').value;
+
+            fetch('/capture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fruit_type: fruitType,
+                    fruit_count: parseInt(fruitCount),
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Data sent successfully!');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html> --> 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Detection</title>
+</head>
+<body>
+    <h1>Fruit Detection</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <form id="fruit-form">
+        <label for="fruit_type">과일 종류:</label>
+        <input type="text" id="fruit_type" name="fruit_type">
+        <label for="fruit_count">개수:</label>
+        <input type="number" id="fruit_count" name="fruit_count">
+        <button type="submit">전송</button>
+    </form>
+    <form id="harvest-form" class="menu">
+        과일종류
+        <select name="fruit" id="fruit_type">
+            <option>선택하세요</option>
+            <option value="appleG">초록사과</option>
+            <option value="appleR">빨간사과</option>
+            <option value="orange">귤</option>
+            <option value="pepperR">빨간고추</option>
+            <option value="pepperG">초록고추</option>
+            <option value="peach">복숭아</option>
+        </select>
+        숫자:<input type="text" id="fruit_count" name="quantity" placeholder="숫자만 입력">
+        <div class="harvest-button">
+            <input type="submit" value="수확하기">
+        </div>
+    </form>
+    <script>
+        // 페이지 로드 시 서버에서 데이터 가져오기
+        window.onload = function() {
+            fetch('/get_fruit_data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('fruit_type').value = data.fruit_type || '';
+                document.getElementById('fruit_count').value = data.fruit_count || '';
+            })
+            .catch(error => console.error('Error:', error));
+        };
+
+        document.getElementById('fruit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fruitType = document.getElementById('fruit_type').value;
+            const fruitCount = document.getElementById('fruit_count').value;
+            fetch('/send_fruit_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fruit_type: fruitType,
+                    fruit_count: parseInt(fruitCount)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

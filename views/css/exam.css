@@ -1,0 +1,117 @@
+body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+header {
+    grid-column: 1 / -1;
+    background-color: peachpuff;
+    padding: 10px;
+    text-align: center;
+}
+/* ===================================== */
+.WCDB, .ECMU {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+.WCDB {
+    grid-column: 1 / -1;
+}
+.ECMU{
+    grid-column: 1 / -1;
+}
+
+.webcam, .DBoutput, .esp32cam, .menu, .harvest-button {
+    padding: 10px;
+}
+.webcam  {
+    background-color: yellow;
+}
+.esp32cam{
+    background-color: rgb(240, 240, 180);
+}
+.DBoutput {
+    background-color: lightgreen;
+}
+.menu, .harvest-button {
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px; 
+}
+.WCDB h1, .ECMU h1 {
+    text-align: center;
+}
+/* .WCDB cameraview {
+    width: 600px;
+    height: auto;
+}
+.ECMU img {
+    width: 400px;
+    height: auto;
+} */
+
+
+/* --------------------------------------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+form {
+    margin: 0 10px;
+}
+select, input[type="text"], input[type="submit"] {
+    font-size: 15px;
+    padding: 10px;
+    margin: 5px 0;
+}
+.harvest-button input[type="submit"] {
+    font-size: 30px;
+    background-color: green;
+    color: white;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.chart{
+    font-size: 20px;
+    width: 400px;
+    height: auto;
+}
+
+.Calendar{
+    font-size: 20px;
+}
+
+
+
+/* 미디어 쿼리 */
+@media (max-width: 980px) {
+    body {
+        grid-template-columns: 1fr;
+    }
+    .WCDB, .ECMU {
+        grid-template-columns: 1fr;
+    }
+    .WCDB img, .ECMU img {
+        width: 100%;
+        height: auto;
+    }
+}

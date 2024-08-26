@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예시</title>
+    <link rel="stylesheet" href="css/exam.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmpeg/0.1/jsmpg.js"></script> <!-- jsmpeg -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>秋收 勞補(추수 로보)</h1>
+        <p>로봇팔이 망에 걸려있는 과일을 수확합니다.</p>
+    </header>
+    <div class="WCDB">
+        <div class="webcam">
+            <!-- usb 로 연결한거 -->
+            <!-- <h1>usb 카메라</h1>
+            <video id="cameraview" width="720" height="480"></video>
+            <div style="text-align: center;">
+                <button id="openBtn">usb카메라 켜기</button>
+                <button id="closeBtn">usb카메라 끄기</button>
+            </div> -->
+            <!-- usb 로 연결한거 -->
+
+            <!-- 스트리밍으로 -->
+            <h1>Live Stream</h1>
+            <button onclick="startStream()">Start Stream</button>
+            <button onclick="stopStream()">Stop Stream</button>
+            <br>
+            <img id="stream" src="" alt="Live Stream">
+            <!-- 스트리밍으로 -->
+        </div>
+        <div class="DBoutput">
+            <!-- <table>
+                <tr>
+                    <th>id</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>초록사과</th>
+                    <th>빨간사과</th>
+                    <th>귤</th>
+                    <th>초록고추</th>
+                    <th>빨간고추</th>
+                    <th>복숭아</th>
+                </tr>
+                <% data.forEach(function(row) { %>
+                <tr>
+                    <td><%= row.id %></td>
+                    <td><%= row.date %></td>
+                    <td><%= row.time %></td>
+                    <td><%= row.apple_g %></td>
+                    <td><%= row.apple_r %></td>
+                    <td><%= row.orange %></td>
+                    <td><%= row.pepper_r %></td>
+                    <td><%= row.pepper_g %></td>
+                    <td><%= row.peach %></td>
+                </tr>
+                <% }); %>
+            </table> -->
+            <!-- -------------------- -->
+            <table>
+                <tr>
+                    <!-- <th>id</th> -->
+                    <th>과일</th>
+                    <th>수확한 개수</th>
+                    <th>시간</th>
+                </tr>
+                <% data.forEach(function(row) { %>
+                <tr>
+                    <!-- <td><%= row.id %></td> -->
+                    <td><%= row.fruit %></td>
+                    <td><%= row.quantity %></td>
+                    <td><%= row.formatted_date %></td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+    <div class="ECMU">
+        <div class="esp32cam">
+            <h1>esp32 cam</h1>
+            <!-- <img src="image/mountain-g98f3ac1ab_1920.jpg" alt="임시 이미지"> -->
+            <!-- rtps 하는거 -->
+            
+            <div class="controls"> 
+                <button id="startStream">esp32 cam 켜기</button>
+                <button id="stopStream">esp32 cam 끄기</button>
+            </div>
+            <canvas id="Canvas"></canvas>
+
+            <!-- rtps 하는거 -->
+
+            <!-- 좀 다름 -->
+            <!-- <canvas id="videoCanvas"></canvas>
+            <button id="startButton">Start Stream</button>
+            <button id="stopButton">Stop Stream</button> -->
+            <!-- 좀 다름 -->
+        </div>
+            <form id="harvest-form" class="menu">
+                과일종류
+                <select name="fruit" id="fruit_type">
+                    <option>선택하세요</option>
+                    <option value="appleG">초록사과</option>
+                    <option value="appleR">빨간사과</option>
+                    <option value="orange">귤</option>
+                    <option value="pepperR">빨간고추</option>
+                    <option value="pepperG">초록고추</option>
+                    <option value="peach">복숭아</option>
+                </select>
+                숫자:<input type="text" id="fruit_count" name="quantity" placeholder="숫자만 입력">
+                <div class="harvest-button">
+                    <input type="submit" value="수확하러가기">
+                </div>
+            </form>
+            <!-- <div class="graph-container" style="display: none;">
+                <canvas id="harvestChart"></canvas>
+            </div> -->
+    </div>
+    
+    <div>
+        <!-- Calendar to select date -->
+        <input type="date" id="datePicker" class="Calendar">
+    </div>
+        
+    <!-- Container for the graph -->
+    <div class="graph-container" style="display: none;">
+        <canvas id="harvestChart"></canvas>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
